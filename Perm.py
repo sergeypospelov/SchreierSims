@@ -17,14 +17,14 @@ class Perm:
         return len(self.perm)
 
     def __getitem__(self, item):
-        return self.perm[item]
+        return self.perm[item - 1]
 
     def __mul__(self, other):
         if len(self) != len(other):
             raise ValueError("different lengths")
         res = [0] * len(self)
         for i in range(len(self)):
-            res[i] = other[self[i] - 1]
+            res[i] = other[self[i + 1]]
         return Perm(res)
 
     def __imul__(self, other):
@@ -34,7 +34,7 @@ class Perm:
     def __invert__(self):
         res = [0] * len(self)
         for i in range(len(self)):
-            res[self[i] - 1] = i + 1
+            res[self[i + 1] - 1] = i + 1
         return Perm(res)
 
     def as_cycles(self):
@@ -46,7 +46,7 @@ class Perm:
             while not used[j]:
                 used[j] = True
                 cur.append(j + 1)
-                j = self[j] - 1
+                j = self[j + 1] - 1
             if cur:
                 res.append(cur)
         return res
