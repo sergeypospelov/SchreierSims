@@ -1,4 +1,4 @@
-import Perm
+import Permutation
 from SchreierTree import SchreierTree
 
 
@@ -24,7 +24,7 @@ class Algorithm:
         self.n = n
         self.base = base
         self.stab_chain = [self.ChainSegment(n, generator_set, base[1]),
-                           self.ChainSegment(n, [Perm.id_perm(n)], base[2])]
+                           self.ChainSegment(n, [Permutation.identity(n)], base[2])]
 
     def check_element(self, h):
         copy_h = h
@@ -46,10 +46,10 @@ class Algorithm:
 
         for h in schreier_generators:
             residue, break_pos = self.check_element(h)
-            if residue != Perm.id_perm(self.n):
+            if residue != Permutation.identity(self.n):
                 if break_pos == len(self.stab_chain) - 1:
                     self.stab_chain.append(
-                        self.ChainSegment(self.n, [Perm.id_perm(self.n)], self.base[len(self.stab_chain) + 1]))
+                        self.ChainSegment(self.n, [Permutation.identity(self.n)], self.base[len(self.stab_chain) + 1]))
                 for broken in range(break_pos, pos, -1):
                     self.stab_chain[broken].stab_gen.append(residue)
                     self.rec(broken)

@@ -55,7 +55,7 @@ class Perm:
         return res
 
 
-def id_perm(n: int):
+def identity(n: int):
     return Perm([i + 1 for i in range(n)])
 
 
